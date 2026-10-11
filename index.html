@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#173c32">
+  <title>Petualangan Pikachu Cilik — Game Edukasi 3D</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <section id="homeScreen" class="screen home-screen">
+      <div class="home-shade"></div>
+      <header class="brand">
+        <div class="brand-mark">⚡</div>
+        <div><span class="eyebrow">GAME EDUKASI 3D</span><h1>Petualangan <b>Pikachu</b></h1><p>Jelajah • Belajar • Jadilah Juara!</p></div>
+      </header>
+      <div class="home-content">
+        <div class="welcome-card">
+          <span class="pill">🌿 Dunia Hutan Pokémon</span>
+          <h2>Siap memulai<br><em>petualangan hebat?</em></h2>
+          <p>Bantu Pikachu melewati rintangan, menghindari serangan, dan menjawab tantangan pelajaran untuk mengumpulkan bintang.</p>
+          <button id="startBtn" class="primary-btn">⚡ MULAI PETUALANGAN</button>
+          <button id="soundToggle" class="secondary-btn">🔊 Suara: Aktif</button>
+        </div>
+        <div class="home-hero"><img src="assets/pikachu.png" alt="Pikachu hero"><span class="electric e1">✦</span><span class="electric e2">ϟ</span></div>
+      </div>
+      <footer class="creator">Game ini dibuat oleh : Eko Angga Purnomo, S.Pd.</footer>
+    </section>
+
+    <section id="setupScreen" class="screen setup-screen hidden">
+      <div class="setup-panel">
+        <button class="back-link" id="backHome">← Halaman awal</button>
+        <span class="eyebrow">PERSIAPAN MISI</span><h2>Atur Petualanganmu</h2>
+        <div class="field"><label for="grade">Kelas SD</label><select id="grade"><option value="1">Kelas 1</option><option value="2">Kelas 2</option><option value="3">Kelas 3</option><option value="4">Kelas 4</option><option value="5">Kelas 5</option><option value="6">Kelas 6</option></select></div>
+        <div class="field"><label for="subject">Mata pelajaran</label><select id="subject">
+          <option value="pai">Pendidikan Agama Islam</option><option value="mat">Matematika</option><option value="indo">Bahasa Indonesia</option><option value="pancasila">Pendidikan Pancasila</option><option value="ipas">IPAS</option><option value="jawa">Bahasa Jawa</option><option value="inggris">Bahasa Inggris</option><option value="pjok">PJOK</option><option value="coding">Koding</option><option value="seni">Seni Rupa</option>
+        </select></div>
+        <div class="field"><label>Tantangan</label><div class="choice-row" id="difficultyChoices"><button class="choice active" data-value="mudah">🌱 Mudah</button><button class="choice" data-value="sedang">⚡ Sedang</button><button class="choice" data-value="sulit">🔥 Sulit</button></div></div>
+        <div class="field"><label>Mode pemain</label><div class="choice-row" id="modeChoices"><button class="choice active" data-value="solo">🧑 Solo</button><button class="choice" data-value="duo">👫 Duo</button><button class="choice" data-value="squad">👨‍👩‍👧 Squad</button></div><small>Mode duo/squad memakai kerja sama lokal bergiliran pada satu perangkat.</small></div>
+        <div class="setup-tip">💡 Misi berisi 10 soal. Jawaban benar menambah skor dan energi tim.</div>
+        <button id="playBtn" class="primary-btn full">🌟 MASUK KE DUNIA 3D</button>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen hidden">
+      <div id="world"></div>
+      <div class="hud">
+        <button id="homeGameBtn" class="hud-btn">⌂ Menu</button>
+        <div class="mission-label"><strong id="missionTitle">Hutan Listrik</strong><small id="missionSub">Kelas 1 • Matematika</small></div>
+        <button id="pauseBtn" class="hud-btn">Ⅱ Jeda</button>
+      </div>
+      <div class="status-bar">
+        <div class="stat"><span>❤️ NYAWA</span><strong id="livesText">❤️❤️❤️</strong></div>
+        <div class="stat"><span>⭐ SKOR</span><strong id="scoreText">0</strong></div>
+        <div class="stat"><span>📘 SOAL</span><strong id="questionCount">0/10</strong></div>
+      </div>
+      <div id="quizCard" class="quiz-card hidden">
+        <div class="quiz-top"><span id="quizTag">TANTANGAN BELAJAR</span><span id="quizNumber">SOAL 1/10</span></div>
+        <h3 id="questionText">Pertanyaan muncul di sini</h3>
+        <div id="answerGrid" class="answer-grid"></div>
+        <p id="quizFeedback" class="quiz-feedback" aria-live="polite"></p>
+      </div>
+      <div class="controls-hint" id="controlsHint">Geser jari untuk bergerak • Ketuk layar untuk menembak ⚡</div>
+      <div class="mobile-controls"><button id="shootBtn" class="shoot-btn">⚡ TEMBAK</button><button id="jumpBtn" class="jump-btn">↟ LOMPAT</button></div>
+      <div id="pauseOverlay" class="overlay hidden"><div class="overlay-card"><div class="overlay-icon">⏸️</div><h2>Petualangan dijeda</h2><p>Tarik napas, lalu lanjutkan saat siap.</p><button id="resumeBtn" class="primary-btn full">▶ LANJUTKAN</button><button id="pauseHomeBtn" class="secondary-btn full">⌂ KEMBALI KE MENU</button></div></div>
+      <div id="resultOverlay" class="overlay hidden"><div class="overlay-card result-card"><div class="overlay-icon" id="resultIcon">🏆</div><h2 id="resultTitle">Misi Selesai!</h2><p id="resultMessage">Hebat!</p><div class="reward-stars" id="rewardStars">⭐⭐⭐</div><div class="result-score">Skor <strong id="finalScore">0</strong></div><button id="againBtn" class="primary-btn full">🔁 MAIN LAGI</button><button id="resultHomeBtn" class="secondary-btn full">⌂ HALAMAN AWAL</button></div></div>
+    </section>
+  </div>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
